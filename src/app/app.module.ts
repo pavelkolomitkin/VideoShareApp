@@ -6,6 +6,10 @@ import { AppComponent } from './app.component';
 import {SecurityModule} from './security/security.module';
 import {AppRoutingModule} from './app-routing.module';
 import { HeaderComponent } from './header/header.component';
+import {HttpClientModule} from '@angular/common/http';
+
+import { reducer } from './reducers';
+import { StoreModule } from '@ngrx/store';
 
 
 @NgModule({
@@ -15,8 +19,10 @@ import { HeaderComponent } from './header/header.component';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
-    SecurityModule
+    SecurityModule,
+    StoreModule.forRoot(reducer)
   ],
   providers: [],
   bootstrap: [AppComponent]
