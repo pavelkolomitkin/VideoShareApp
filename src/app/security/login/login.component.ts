@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import {select, Store} from '@ngrx/store';
 import { State } from '../../reducers';
@@ -14,26 +14,19 @@ export class LoginComponent implements OnInit {
 
   loginErrors: Observable<{}>;
 
-  constructor(private store: Store<State>) {
+  constructor(
+      private store: Store<State>
+  )
+  {
     this.loginErrors = store.pipe(select(state => state.security.authErrors));
-    // this.loginErrors.subscribe((errors) => {
-    //   debugger;
-    //   console.log(errors);
-    // });
-    // this.loginErrors = store.select((state) => {
-    //   debugger;
-    //   return state.security.authErrors;
-    // });
   }
 
   ngOnInit() {
 
   }
 
-
     onSubmit(form: NgForm) {
       const { email, password } = form.value;
-      console.log(email, password);
 
       this.store.dispatch(new UserLoginStart({
           login: email,

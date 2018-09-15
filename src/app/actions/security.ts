@@ -2,8 +2,6 @@ import {Action} from '@ngrx/store';
 
 import { UserCredentials } from '../models/user-credentials.model';
 import { User } from '../models/user.model';
-import { FormError} from '../models/form-error.model';
-
 
 export const USER_LOGIN_START = 'USER_LOGIN_START';
 export const USER_LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS';

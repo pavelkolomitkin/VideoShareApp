@@ -19,6 +19,8 @@ import {EffectsModule} from '@ngrx/effects';
 import {SecurityEffects} from './security/effects/security.effects';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {CommonModule} from '@angular/common';
+import {LocalStorageService} from './services/local-storage.service';
+import {MapModule} from './map/map.module';
 
 const httpInterceptorProviders = [
     { provide: HTTP_INTERCEPTORS, useClass: BaseApiUrlInterceptor, multi: true },
@@ -40,16 +42,18 @@ const httpInterceptorProviders = [
     HttpClientModule,
     AppRoutingModule,
     SecurityModule,
+      MapModule,
       StoreDevtoolsModule.instrument(
           {
               maxAge: 25, // Retains last 25 states
-              logOnly: true, // Restrict extension to log-only mode
+              logOnly: isDevMode(), // Restrict extension to log-only mode
           }
       ),
     EffectsModule.forRoot([SecurityEffects]) // TODO move to security module!!!
   ],
   providers: [
-      httpInterceptorProviders
+      httpInterceptorProviders,
+      LocalStorageService
   ],
   bootstrap: [AppComponent]
 })
