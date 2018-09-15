@@ -12,18 +12,16 @@ export interface State {
 }
 
 
-const reducers = {
+export const reducer = {
     security: fromSecurity.reducer
 };
 
 
-const developmentReducer: ActionReducer<State> = compose(storeFreeze, combineReducers)(reducers);
-const productionReducer: ActionReducer<State> = combineReducers(reducers);
+//const developmentReducer: ActionReducer<State> = compose(storeFreeze, combineReducers)(reducers);
+// const developmentReducer: ActionReducer<State> = combineReducers(reducers);
+// const productionReducer: ActionReducer<State> = combineReducers(reducers);
+// const combinedReducer: ActionReducer<State> = combineReducers(reducers);
 
-export function reducer(state: any, action: any) {
-    if (isDevMode()) {
-        return developmentReducer(state, action);
-    } else {
-        return productionReducer(state, action);
-    }
-}
+// export function reducer(state: any, action: any) {
+//     return combinedReducer(state, action);
+// }

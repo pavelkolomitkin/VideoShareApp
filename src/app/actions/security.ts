@@ -29,7 +29,7 @@ export class UserLoginError implements Action {
 
     readonly type = USER_LOGIN_ERROR;
 
-    constructor(public errors: FormError[] = []) {}
+    constructor(public errors: Object) {}
 }
 
 export class UserLogout implements Action {

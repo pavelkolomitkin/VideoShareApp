@@ -8,9 +8,10 @@ const config = require('./config');
 const app            = express();
 app.use(cors());
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 
 const port = 8000;
-MongoClient.connect(config.MONGO.CONNECTION_URL, (err, db) => {
+MongoClient.connect(config.MONGO.CONNECTION_URL, {useNewUrlParser: true}, (err, db) => {
 
     if (err) return console.log(err);
 

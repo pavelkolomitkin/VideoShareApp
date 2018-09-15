@@ -12,34 +12,49 @@ module.exports = (app, database) => {
 
         database
             .collection('users')
-            .findOne({email: email})
-            .exec()
-            .then((user) => {
+            .find({email: email}).limit(1).toArray((error, users) => {
+                if (error)
+                {
+                    console.error(error);
+                    res.status(500).send({
+                        message: 'Server Error!'
+                    });
+                    return;
+                }
 
-                 if (user.password ===  JWT.sign(password, config.APP_SECURITY_SIGN_KEY))
-                 {
-                     const userData = _.omit(user, 'password');
-                     res
-                         .status(200)
-                         .send({
-                         user: userData,
-                         token: JWT.sign(userData, config.APP_SECURITY_SIGN_KEY)
-                     });
-                 }
-                 else
-                 {
-                     res.status(400).send({
-                         errors: {
-                             email: 'Email or password are incorrect!'
-                         }
-                     });
-                 }
+                if (users.length === 0)
+                {
+                    res.status(400).send({
+                        errors: {
+                            email: 'Email or password are incorrect!'
+                        }
+                    });
 
-            })
-            .catch((error) => {
-                console.error(error);
+                    return;
+                }
+
+                const user = users[0];
+                //debugger;
+
+                if (user.password ===  JWT.sign(password, config.APP_SECURITY_SIGN_KEY))
+                {
+                    const userData = _.omit(user, 'password');
+                    res
+                        .status(200)
+                        .send({
+                            user: userData,
+                            token: JWT.sign(userData, config.APP_SECURITY_SIGN_KEY)
+                        });
+                }
+                else
+                {
+                    res.status(400).send({
+                        errors: {
+                            email: 'Email or password are incorrect!'
+                        }
+                    });
+                }
+
             });
-
-        res.status(403);
     });
 };
