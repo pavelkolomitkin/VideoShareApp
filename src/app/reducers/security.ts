@@ -27,13 +27,21 @@ export function reducer(state = initialState, action: actions.SecurityActions): 
 
         case actions.USER_LOGIN_SUCCESS:
 
-            return {...state, user: action.user, token: action.token, authErrors: null};
+            return {...state, user: action.user, token: action.token, authErrors: {}};
+
+        case actions.USER_TOKEN_VERIFY_SUCCESS:
+
+            return {...state, user: action.user, token: action.token, authErrors: {}};
 
         case actions.USER_LOGIN_ERROR:
 
             return { ...state, authErrors: action.errors };
 
         case actions.USER_LOGOUT:
+
+            return { ...state, token: null, user: null, authCredentials: null};
+
+        case actions.USER_TOKEN_VERIFY_ERROR:
 
             return { ...state, token: null, user: null, authCredentials: null};
 

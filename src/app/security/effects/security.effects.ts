@@ -53,11 +53,12 @@ export class SecurityEffects {
         })
     );
 
-    @Effect()
+    @Effect({ dispatch: false })
     logout: Observable<Action> = this.actions.pipe(
         ofType(USER_LOGOUT),
         tap((action: UserLogout) => {
            this.localStorageService.remove('token');
+           this.router.navigate(['/login']);
         })
     );
 

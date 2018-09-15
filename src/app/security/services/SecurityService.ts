@@ -18,4 +18,9 @@ export class SecurityService
                 })
             );
     }
+
+    public verifyToken(token: string)
+    {
+        return this.http.post<{ user: User }>('verify', {token});
+    }
 }

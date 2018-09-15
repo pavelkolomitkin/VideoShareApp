@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import {isDevMode, NgModule} from '@angular/core';
+import {APP_INITIALIZER, isDevMode, NgModule} from '@angular/core';
 
 
 import { AppComponent } from './app.component';
@@ -21,6 +21,7 @@ import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {CommonModule} from '@angular/common';
 import {LocalStorageService} from './services/local-storage.service';
 import {MapModule} from './map/map.module';
+import {appInitializeHandler, AppInitializerService} from './services/app-initializer.service';
 
 const httpInterceptorProviders = [
     { provide: HTTP_INTERCEPTORS, useClass: BaseApiUrlInterceptor, multi: true },
@@ -53,7 +54,14 @@ const httpInterceptorProviders = [
   ],
   providers: [
       httpInterceptorProviders,
-      LocalStorageService
+      LocalStorageService,
+      AppInitializerService,
+      {
+          provide: APP_INITIALIZER,
+          useFactory: appInitializeHandler,
+          deps: [AppInitializerService],
+          multi: true
+      }
   ],
   bootstrap: [AppComponent]
 })
