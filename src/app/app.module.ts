@@ -22,6 +22,7 @@ import {CommonModule} from '@angular/common';
 import {LocalStorageService} from './services/local-storage.service';
 import {MapModule} from './map/map.module';
 import {appInitializeHandler, AppInitializerService} from './services/app-initializer.service';
+import {ProfileModule} from './profile/profile.module';
 
 const httpInterceptorProviders = [
     { provide: HTTP_INTERCEPTORS, useClass: BaseApiUrlInterceptor, multi: true },
@@ -44,6 +45,7 @@ const httpInterceptorProviders = [
     AppRoutingModule,
     SecurityModule,
       MapModule,
+      ProfileModule,
       StoreDevtoolsModule.instrument(
           {
               maxAge: 25, // Retains last 25 states
