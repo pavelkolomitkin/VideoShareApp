@@ -35,17 +35,14 @@ export class AppInitializerService
             this.securityService.verifyToken(token)
                 .subscribe(
                     (result) => {
-                        debugger
                         const { user } = result;
                         this.store.dispatch(new UserTokenVerifySuccess(user, token));
                         resolve(true);
                     },
                     (error) => {
-                        debugger
                         this.localStorageService.remove('token');
                         this.store.dispatch(new UserTokenVerifyError());
                         resolve(true);
-
                     }
                     );
 
