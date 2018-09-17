@@ -1,0 +1,56 @@
+<form (ngSubmit)="onSubmit(form)" #form="ngForm">
+  <div class="form-group">
+    <input
+            type="text"
+            class="form-control"
+            id="videoUrl"
+            [(ngModel)]="video.url"
+            name="videoUrl"
+            placeholder="Video Url"
+            required
+    >
+    <small class="form-text text-danger" *ngIf="(validationErrors | async).videoUrl">{{ (validationErrors | async).videoUrl }}</small>
+  </div>
+  <div class="form-group">
+    <input
+            type="text"
+            class="form-control"
+            id="title"
+            [(ngModel)]="video.title"
+            name="title"
+            placeholder="Video Title"
+            required
+    >
+    <small class="form-text text-danger" *ngIf="(validationErrors | async).title">{{ (validationErrors | async).title }}</small>
+  </div>
+  <div class="form-group">
+    <input
+            type="text"
+            class="form-control"
+            id="description"
+            [(ngModel)]="video.description"
+            name="description"
+            placeholder="Video Description"
+    >
+    <small class="form-text text-danger" *ngIf="(validationErrors | async).description">{{ (validationErrors | async).description }}</small>
+  </div>
+
+  <div class="form-group">
+    <input
+            #datetimePicker
+            class="form-control"
+            id="time"
+            [(ngModel)]="video.time"
+            name="time"
+            placeholder="Date Event"
+            required
+    >
+    <small class="form-text text-danger" *ngIf="(validationErrors | async).time">{{ (validationErrors | async).time }}</small>
+  </div>
+
+  <div class="form-group">
+    <label>Geo Location</label>
+    <span class="text text-muted">[{{ video.location.latitude }}, {{ video.location.longitude }}]</span>
+  </div>
+  <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Save</button>
+</form>

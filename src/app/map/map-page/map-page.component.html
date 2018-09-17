@@ -1,0 +1,8 @@
+<app-controls (onAddVideoChange)="onAddVideoChangeStateHandler($event)"></app-controls>
+<app-map [center]="mapCenter" (onCoordinateSelected)="onNewCoordinateSelected($event)"></app-map>
+
+<app-modal-window #createVideoModal
+        [headerText]="'Add new video'"
+        >
+    <app-create-video-form #createVideoForm></app-create-video-form>
+</app-modal-window>

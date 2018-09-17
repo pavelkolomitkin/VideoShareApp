@@ -1,0 +1,7 @@
+<div>
+  <button
+          type="button"
+          class="btn btn-outline-success"
+          [class.active]="actionStates.addVideo === true"
+          (click)="onChangeState('addVideo', $event)">Add Video</button>
+</div>

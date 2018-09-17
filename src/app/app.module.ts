@@ -34,7 +34,8 @@ const httpInterceptorProviders = [
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent
+    HeaderComponent,
+
   ],
   imports: [
     CommonModule,

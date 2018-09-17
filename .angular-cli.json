@@ -20,11 +20,16 @@
       "prefix": "app",
       "styles": [
         "../node_modules/bootstrap/dist/css/bootstrap.min.css",
+        "../node_modules/gijgo/css/gijgo.min.css",
         "styles.css"
       ],
       "scripts": [
+        "../node_modules/underscore/underscore-min.js",
         "../node_modules/jquery/dist/jquery.min.js",
-        "../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+        "../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
+        "../node_modules/bootstrap/js/dist/util.js",
+        "../node_modules/bootstrap/js/dist/modal.js",
+        "../node_modules/gijgo/js/gijgo.min.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

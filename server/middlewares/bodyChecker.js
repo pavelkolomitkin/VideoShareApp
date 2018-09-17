@@ -7,6 +7,6 @@ module.exports = (req, res, next) => {
     {
         res.status(403).send({
             message: 'You need a payload!'
-        })
+        });
     }
 };

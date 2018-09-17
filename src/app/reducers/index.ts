@@ -6,14 +6,17 @@ import { ActionReducer } from '@ngrx/store';
 import { storeFreeze } from 'ngrx-store-freeze';
 
 import * as fromSecurity from './security';
+import * as fromVideo from './video';
 
 export interface State {
     security: fromSecurity.State;
+    video: fromVideo.State;
 }
 
 
 export const reducer = {
-    security: fromSecurity.reducer
+    security: fromSecurity.reducer,
+    video: fromVideo.reducer
 };
 
 

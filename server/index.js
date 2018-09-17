@@ -16,6 +16,11 @@ MongoClient.connect(config.MONGO.CONNECTION_URL, {useNewUrlParser: true}, (err, 
     if (err) return console.log(err);
 
     const database = db.db(config.MONGO.DATABASE_NAME);
+
+    app.use((req, res, next) => {
+        require('./middlewares/tokenChecker')(req, res, next, database);
+    });
+
     require('./routes')(app, database);
 
     app.listen(port, () => {
