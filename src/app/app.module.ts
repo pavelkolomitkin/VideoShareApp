@@ -24,9 +24,12 @@ import {MapModule} from './map/map.module';
 import {appInitializeHandler, AppInitializerService} from './services/app-initializer.service';
 import {ProfileModule} from './profile/profile.module';
 import {CreateVideoFormComponent} from './common/create-video-form/create-video-form.component';
-import {FormsModule} from '@angular/forms';
-import {NgbDatepickerModule, NgbDropdownModule, NgbModalModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbDropdownModule, NgbModalModule} from '@ng-bootstrap/ng-bootstrap';
 import {MapRoutingModule} from './map/map-routing.module';
+
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {VideoEffects} from './effects/video.effects';
+import {VideoService} from './services/video.service';
 
 const httpInterceptorProviders = [
     { provide: HTTP_INTERCEPTORS, useClass: BaseApiUrlInterceptor, multi: true },
@@ -44,7 +47,7 @@ const httpInterceptorProviders = [
   imports: [
     CommonModule,
     BrowserModule,
-      NgbDatepickerModule.forRoot(),
+      BrowserAnimationsModule,
       NgbModalModule.forRoot(),
       NgbDropdownModule.forRoot(),
       MapRoutingModule,
@@ -61,11 +64,12 @@ const httpInterceptorProviders = [
               logOnly: isDevMode(), // Restrict extension to log-only mode
           }
       ),
-    EffectsModule.forRoot([SecurityEffects]) // TODO move to security module!!!
+    EffectsModule.forRoot([SecurityEffects, VideoEffects]) // TODO move to security module!!!
   ],
   providers: [
       httpInterceptorProviders,
       LocalStorageService,
+      VideoService,
       AppInitializerService,
       {
           provide: APP_INITIALIZER,

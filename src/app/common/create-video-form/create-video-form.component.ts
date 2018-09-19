@@ -10,9 +10,17 @@ import {VideoCreationStart} from '../../actions/video';
   templateUrl: './create-video-form.component.html',
   styleUrls: ['./create-video-form.component.css']
 })
-export class CreateVideoFormComponent {
+export class CreateVideoFormComponent implements OnInit {
+    ngOnInit(): void {
+        console.log('CreateVideoFormComponent->ngOnInit()');
+    }
 
-    video: Video = {};
+    video: Video = {
+        title: 'Hello',
+        description: '',
+        url: 'https://www.youtube.com/watch?v=9GiF-etogYg',
+        time: new Date()
+    };
 
     videoErrors: Object = {};
 
@@ -34,8 +42,7 @@ export class CreateVideoFormComponent {
 
     onSubmitHandler($event)
     {
-        console.log('Form submit!', $event);
-        //this.store.dispatch(new VideoCreationStart(this.video));
+        this.store.dispatch(new VideoCreationStart(this.video));
     }
 
 

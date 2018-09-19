@@ -24,32 +24,33 @@
     <small class="form-text text-danger" *ngIf="(validationErrors | async).title">{{ (validationErrors | async).title }}</small>
   </div>
   <div class="form-group">
-    <input
-            type="text"
+    <textarea
             class="form-control"
             id="description"
             [(ngModel)]="video.description"
             name="description"
             placeholder="Video Description"
-    >
+            rows="3"
+    ></textarea>
+    <!--<input-->
+            <!--type="text"-->
+            <!--class="form-control"-->
+            <!--id="description"-->
+            <!--[(ngModel)]="video.description"-->
+            <!--name="description"-->
+            <!--placeholder="Video Description"-->
+    <!--&gt;-->
     <small class="form-text text-danger" *ngIf="(validationErrors | async).description">{{ (validationErrors | async).description }}</small>
   </div>
 
   <div class="form-group">
-    <input
-            #dateTimeInput
-            type="datetime-local"
-            class="form-control"
-            id="time"
-            [(ngModel)]="video.time"
-            name="time"
-    >
+    <angular2-date-picker [(ngModel)]="video.time" [settings]="settings" name="date"></angular2-date-picker>
+
     <small class="form-text text-danger" *ngIf="(validationErrors | async).time">{{ (validationErrors | async).time }}</small>
   </div>
 
   <div class="form-group">
-    <label>Geo Location</label>
-    <span>{{ video.location ? video.location.latitude : '' }}</span>
+      <span class="text text-muted">Geo Location:  [{{ video.location.latitude }}, {{ video.location.longitude }}]</span>
   </div>
   <button type="submit" class="btn btn-primary">Save</button>
 </form>

@@ -1,8 +1,6 @@
-import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import { Video } from '../../models/video.model';
-import {Observable} from 'rxjs/Observable';
-import {GeoLocation} from '../../models/geo-location.model';
 
 @Component({
   selector: 'app-video-management-form',
@@ -11,7 +9,12 @@ import {GeoLocation} from '../../models/geo-location.model';
 })
 export class VideoManagementFormComponent implements OnInit {
 
-  @ViewChild('dateTimeInput') dateTimeInput;
+    settings = {
+        bigBanner: true,
+        timePicker: true,
+        format: 'dd-MM-yyyy H:mm',
+        defaultOpen: false
+    };
 
   @Input() video: Video = {
 
@@ -30,6 +33,6 @@ export class VideoManagementFormComponent implements OnInit {
 
   onSubmit(form: NgForm)
   {
-      this.onSubmitEvent.emit(form.value);
+    this.onSubmitEvent.emit(form.value);
   }
 }

@@ -14,7 +14,7 @@ export class VideoService
     public create(video: Video): Observable<Video>
     {
         const body = _.pick(video, 'url', 'title', 'description', 'location', 'time');
-        return this.http.post<{video: Video}>('/video', body).pipe(
+        return this.http.post<{video: Video}>('video', body).pipe(
             map(result => result.video)
         );
     }

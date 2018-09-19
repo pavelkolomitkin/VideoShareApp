@@ -5,6 +5,7 @@ module.exports.url = (url, { req }) => {
             provider(url)
                 .then((data) => {
                     req.parsedVideo = data;
+                    resolve();
                 })
                 .catch((error) => {
                     reject('Can not recognize url!');

@@ -4,6 +4,8 @@ module.exports.isLatitude = (value) => {
     {
         throw new Error('Latitude can between values [-90.0, 90.0]');
     }
+
+    return true;
 }
 
 
@@ -13,4 +15,5 @@ module.exports.isLongitude = (value) => {
     {
         throw new Error('Longitude can between values [-180.0, 180.0]');
     }
+    return true;
 }

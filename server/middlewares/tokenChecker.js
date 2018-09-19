@@ -9,7 +9,7 @@ module.exports = (req, res, next, database) => {
         return;
     }
 
-    const token = req.headers['Auth-Token'] || null;
+    const token = req.headers['auth-token'] || null;
     if (!token)
     {
         res.status(401).send({

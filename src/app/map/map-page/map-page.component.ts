@@ -4,7 +4,7 @@ import {Video} from '../../models/video.model';
 import {select, Store} from '@ngrx/store';
 import {State} from '../../reducers';
 import {Subscription} from 'rxjs/Subscription';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-map-page',
@@ -14,9 +14,9 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 })
 export class MapPageComponent implements OnInit, OnDestroy {
 
-  @ViewChild('createVideoModal') createVideoModal: TemplateRef<any>;
+  @ViewChild('createVideoModal') createVideoModalElement: TemplateRef<any>;
 
-  modalData: {};
+  createModalReference: NgbModalRef = null;
 
   lastSelectedLocation: GeoLocation;
 
@@ -31,9 +31,12 @@ export class MapPageComponent implements OnInit, OnDestroy {
       private modalService: NgbModal
       ) {
 
-    this.creationVideoSubscription = this.store.pipe(select(state => state.video.newVideo)).subscribe(
+    this.creationVideoSubscription = this.store.pipe(select(state => state.video.createdVideo)).subscribe(
         (result: Video) => {
-            console.log(result);
+            if (result !== null) {
+                console.log(result);
+                this.closeCreationVideoWindow();
+            }
         }
     );
 
@@ -54,32 +57,29 @@ export class MapPageComponent implements OnInit, OnDestroy {
     onNewCoordinateSelected($event: GeoLocation)
     {
       if (this.isVideoAdding) {
-          console.log('------------------');
           this.lastSelectedLocation = {...$event};
           this.openCreationVideoWindow();
-          console.log('');
       }
     }
 
     openCreationVideoWindow()
     {
-        this.modalData = {location: {...this.lastSelectedLocation}};
-        console.log(this.modalData);
-
-        this.modalService.open(this.createVideoModal, {size: 'lg'});
-        /*
-        this
-            .modalService
-            .open(this.createVideoModal)
-            .result
+        this.createModalReference = this.modalService.open(this.createVideoModalElement, {size: 'lg'});
+        this.createModalReference.result
             .then((result) => {
-                //this.closeResult = `Closed with: ${result}`;
-                debugger
-                console.log(result);
-            }, (reason) => {
-                debugger
-                console.error(reason);
-                //this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-            });*/
+                    this.createModalReference = null;
+                    },
+            (reason) => {
+                    this.createModalReference = null;
+                    });
+    }
+
+    closeCreationVideoWindow()
+    {
+      if (this.createModalReference !== null)
+      {
+          this.createModalReference.close();
+          this.createModalReference = null;
+      }
     }
 }

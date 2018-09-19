@@ -4,7 +4,7 @@ import {VideoService} from '../services/video.service';
 import {Router} from '@angular/router';
 import {Observable} from 'rxjs/Observable';
 import {Action} from '@ngrx/store';
-import {VIDEO_CREATION_START, VideoCreationError, VideoCreationStart, VideoCreationSuccess} from '../actions/video';
+import {VIDEO_CREATION_START, VIDEO_CREATION_SUCCESS, VideoCreationError, VideoCreationStart, VideoCreationSuccess} from '../actions/video';
 import {mergeMap, catchError, map} from 'rxjs/operators';
 import {of} from 'rxjs/observable/of';
 
@@ -28,6 +28,14 @@ export class VideoEffects
             );
         })
     );
+
+    // creationSuccess: Observable<Action> = this.actions.pipe(
+    //     ofType(VIDEO_CREATION_SUCCESS),
+    //     mergeMap((action: VideoCreationSuccess) => {
+    //         const { video } = action;
+    //
+    //     })
+    // );
 
     constructor(
         private actions: Actions,

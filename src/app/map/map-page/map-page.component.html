@@ -1,35 +1,16 @@
 <ng-template #createVideoModal let-close="close">
     <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+        <h4 class="modal-title" id="modal-basic-title">Add new video</h4>
         <button type="button" class="close" aria-label="Close" (click)="close()">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
     <div class="modal-body">
-        <form>
-            <div class="form-group">
-                <label>Text</label>
-                <input type="text" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label>Location:</label>
-                <span class="text text-muted">[{{ lastSelectedLocation.latitude }}, {{ lastSelectedLocation.longitude }}]</span>
-            </div>
-
-            <!--<div class="form-group">-->
-            <!--<label for="dateOfBirth">Date of birth</label>-->
-            <!--<div class="input-group">-->
-            <!--<input id="dateOfBirth" class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #dp>-->
-            <!--<div class="input-group-append">-->
-            <!--<button class="btn btn-outline-secondary calendar" (click)="dp.toggle()" type="button"></button>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--</div>-->
-        </form>
+        <app-create-video-form [selectedLocation]="lastSelectedLocation"></app-create-video-form>
     </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-outline-dark" (click)="close()">Save</button>
-    </div>
+    <!--<div class="modal-footer">-->
+        <!--<button type="button" class="btn btn-outline-dark" (click)="close()">Save</button>-->
+    <!--</div>-->
 </ng-template>
 <app-controls (onAddVideoChange)="onAddVideoChangeStateHandler($event)"></app-controls>
 <div>

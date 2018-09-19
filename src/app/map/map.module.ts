@@ -9,6 +9,8 @@ import {ModalWindowComponent} from '../common/modal-window/modal-window.componen
 import {CreateVideoFormComponent} from '../common/create-video-form/create-video-form.component';
 import {VideoManagementFormComponent} from '../common/video-management-form/video-management-form.component';
 import {FormsModule} from '@angular/forms';
+import { AngularDateTimePickerModule } from 'angular2-datetimepicker';
+
 
 @NgModule({
   declarations: [
@@ -21,7 +23,8 @@ import {FormsModule} from '@angular/forms';
   ],
   imports: [
     CommonModule,
-      FormsModule
+      FormsModule,
+      AngularDateTimePickerModule
   ],
   exports: [
       RouterModule
