@@ -21,7 +21,6 @@ import {FormsModule} from '@angular/forms';
   ],
   imports: [
     CommonModule,
-      MapRoutingModule,
       FormsModule
   ],
   exports: [

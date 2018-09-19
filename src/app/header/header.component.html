@@ -9,11 +9,11 @@
     </ul>
     <div class="my-2 my-lg-0">
       <a *ngIf="user === null" routerLink="/login" class="btn btn-outline-success" routerLinkActive="disabled">Login</a>
-      <div *ngIf="user !== null" class="btn-group">
-        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <div *ngIf="user !== null" ngbDropdown class="btn-group">
+        <button ngbDropdownToggle type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           {{ user.username }}
         </button>
-        <div class="dropdown-menu dropdown-menu-right">
+        <div ngbDropdownMenu class="dropdown-menu dropdown-menu-right">
           <button class="dropdown-item" routerLink="/profile" type="button">Profile</button>
           <button class="dropdown-item" (click)="onLogoutClickHandler($event)" type="button">Logout</button>
         </div>

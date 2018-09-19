@@ -37,20 +37,19 @@
 
   <div class="form-group">
     <input
-            #datetimePicker
+            #dateTimeInput
+            type="datetime-local"
             class="form-control"
             id="time"
             [(ngModel)]="video.time"
             name="time"
-            placeholder="Date Event"
-            required
     >
     <small class="form-text text-danger" *ngIf="(validationErrors | async).time">{{ (validationErrors | async).time }}</small>
   </div>
 
   <div class="form-group">
     <label>Geo Location</label>
-    <span class="text text-muted">[{{ video.location.latitude }}, {{ video.location.longitude }}]</span>
+    <span>{{ video.location ? video.location.latitude : '' }}</span>
   </div>
-  <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Save</button>
+  <button type="submit" class="btn btn-primary">Save</button>
 </form>

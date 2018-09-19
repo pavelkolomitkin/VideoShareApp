@@ -23,6 +23,10 @@ import {LocalStorageService} from './services/local-storage.service';
 import {MapModule} from './map/map.module';
 import {appInitializeHandler, AppInitializerService} from './services/app-initializer.service';
 import {ProfileModule} from './profile/profile.module';
+import {CreateVideoFormComponent} from './common/create-video-form/create-video-form.component';
+import {FormsModule} from '@angular/forms';
+import {NgbDatepickerModule, NgbDropdownModule, NgbModalModule} from '@ng-bootstrap/ng-bootstrap';
+import {MapRoutingModule} from './map/map-routing.module';
 
 const httpInterceptorProviders = [
     { provide: HTTP_INTERCEPTORS, useClass: BaseApiUrlInterceptor, multi: true },
@@ -40,6 +44,10 @@ const httpInterceptorProviders = [
   imports: [
     CommonModule,
     BrowserModule,
+      NgbDatepickerModule.forRoot(),
+      NgbModalModule.forRoot(),
+      NgbDropdownModule.forRoot(),
+      MapRoutingModule,
     StoreModule.forRoot(reducer),
 
     HttpClientModule,
@@ -66,6 +74,7 @@ const httpInterceptorProviders = [
           multi: true
       }
   ],
+    entryComponents: [CreateVideoFormComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
