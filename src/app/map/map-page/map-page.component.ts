@@ -5,6 +5,7 @@ import {select, Store} from '@ngrx/store';
 import {State} from '../../reducers';
 import {Subscription} from 'rxjs/Subscription';
 import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {MapBounds} from '../../models/map-bounds.model';
 
 @Component({
   selector: 'app-map-page',
@@ -60,6 +61,11 @@ export class MapPageComponent implements OnInit, OnDestroy {
           this.lastSelectedLocation = {...$event};
           this.openCreationVideoWindow();
       }
+    }
+
+    onMapBoundChangedHandler(bounds: MapBounds)
+    {
+        console.log('Map bounds changed: ', bounds);
     }
 
     openCreationVideoWindow()
