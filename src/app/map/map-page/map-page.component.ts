@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, OnDestroy, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, Component, ElementRef, OnDestroy, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {GeoLocation} from '../../models/geo-location.model';
 import {Video} from '../../models/video.model';
 import {select, Store} from '@ngrx/store';
@@ -6,6 +6,7 @@ import {State} from '../../reducers';
 import {Subscription} from 'rxjs/Subscription';
 import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import {MapBounds} from '../../models/map-bounds.model';
+import {LoadVideoListFromBoundsStart} from '../../actions/video';
 
 @Component({
   selector: 'app-map-page',
@@ -16,6 +17,7 @@ import {MapBounds} from '../../models/map-bounds.model';
 export class MapPageComponent implements OnInit, OnDestroy {
 
   @ViewChild('createVideoModal') createVideoModalElement: TemplateRef<any>;
+  @ViewChild('mapComponent') map;
 
   createModalReference: NgbModalRef = null;
 
@@ -25,7 +27,11 @@ export class MapPageComponent implements OnInit, OnDestroy {
 
   isVideoAdding: boolean = false;
 
+  loadedVideoList: Array<Video> = [];
+
   creationVideoSubscription: Subscription;
+  selectedBoundsSubscription: Subscription;
+  loadedBoundsVideoList: Subscription;
 
   constructor(
       private store: Store<State>,
@@ -35,12 +41,25 @@ export class MapPageComponent implements OnInit, OnDestroy {
     this.creationVideoSubscription = this.store.pipe(select(state => state.video.createdVideo)).subscribe(
         (result: Video) => {
             if (result !== null) {
-                console.log(result);
                 this.closeCreationVideoWindow();
             }
         }
     );
 
+    this.selectedBoundsSubscription = this.store.pipe(select(state => state.video.selectedMapBounds))
+        .subscribe((bounds: MapBounds) => {
+            console.log('New bounds selected: ', bounds);
+        });
+
+
+    this.loadedBoundsVideoList = this.store.pipe(select(state => state.video.loadedBoundsVideos))
+        .subscribe((list: Array<Video>) => {
+            console.log('Video list loaded: ', list);
+            //this.loadedVideoList = [...list];
+            if (this.map) {
+                this.map.setVideos(list);
+            }
+        });
   }
 
   ngOnInit() {
@@ -48,6 +67,8 @@ export class MapPageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.creationVideoSubscription.unsubscribe();
+    this.selectedBoundsSubscription.unsubscribe();
+    this.loadedBoundsVideoList.unsubscribe();
   }
 
     onAddVideoChangeStateHandler($event)
@@ -65,7 +86,7 @@ export class MapPageComponent implements OnInit, OnDestroy {
 
     onMapBoundChangedHandler(bounds: MapBounds)
     {
-        console.log('Map bounds changed: ', bounds);
+        this.store.dispatch(new LoadVideoListFromBoundsStart(bounds));
     }
 
     openCreationVideoWindow()

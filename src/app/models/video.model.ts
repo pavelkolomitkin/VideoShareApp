@@ -9,4 +9,5 @@ export interface Video {
     time?: Date;
     location?: GeoLocation;
     owner?: User;
+    videoData?: Object;
 }

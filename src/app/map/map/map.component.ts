@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {GeoLocation} from '../../models/geo-location.model';
 import {MapBounds} from '../../models/map-bounds.model';
+import {Video} from '../../models/video.model';
 
 declare var ymaps:any;
 
@@ -11,7 +12,7 @@ declare var ymaps:any;
 })
 export class MapComponent implements OnInit {
 
-  //public map: any;
+  public map: any;
 
   @Input() center: GeoLocation;
 
@@ -21,6 +22,15 @@ export class MapComponent implements OnInit {
 
   lastMapBounds: MapBounds = null;
 
+  _videos: Array<Video> = [];
+
+  private videoMarks = [];
+
+  public setVideos(value: Array<Video>)
+  {
+      this.updateVideoMarks(value);
+  }
+
   constructor() {
 
   }
@@ -28,7 +38,7 @@ export class MapComponent implements OnInit {
   onMapCoordinateSelected(event)
   {
       const coords = event.get('coords');
-      this.coordinateSelected.emit({longitude: coords[0], latitude: coords[1]});
+      this.coordinateSelected.emit({latitude: coords[0], longitude: coords[1]});
   }
 
   onMapBoundChanged(event)
@@ -60,8 +70,66 @@ export class MapComponent implements OnInit {
 
           this.lastMapBounds = this.convertBounds(map.getBounds());
           this.onBoundsChanged.emit(this.lastMapBounds);
+
+          this.map = map;
       });
 
+  }
+
+  private clearVideoMarks()
+  {
+      for (const mark of this.videoMarks)
+      {
+          this.map.geoObjects.remove(mark);
+      }
+
+      this.videoMarks = [];
+      this._videos = [];
+  }
+
+  private updateVideoMarks(videos: Array<Video>)
+  {
+      // clear old video marks
+      this.clearVideoMarks();
+
+      // create new video marks
+      for (const video of videos)
+      {
+          const contentLayout = ymaps.templateLayoutFactory.createClass(
+              '<div style="color: #FFFFFF; font-weight: bold;">$[properties.iconContent]</div>'
+          );
+
+          const mark = new ymaps.Placemark([video.location.latitude, video.location.longitude],
+              {
+                  hintContent: video.title,
+                  balloonContent: '',
+                  iconContent: ''
+              },
+              {
+                  // Опции.
+                  // Необходимо указать данный тип макета.
+                  iconLayout: 'default#imageWithContent',
+                  // Своё изображение иконки метки.
+                  iconImageHref: video.videoData.thumbnail_url,
+                  // Размеры метки.
+                  iconImageSize: [48, 48],
+                  // Смещение левого верхнего угла иконки относительно
+                  // её "ножки" (точки привязки).
+                  iconImageOffset: [-24, -24],
+                  // Смещение слоя с содержимым относительно слоя с картинкой.
+                  iconContentOffset: [15, 15],
+                  // Макет содержимого.
+                  iconContentLayout: contentLayout
+              });
+          // create mark
+          // add link in internal array
+          this.videoMarks.push(mark);
+
+          // add mark to map
+          this.map.geoObjects.add(mark);
+      }
+
+      this._videos = videos;
   }
 
 }

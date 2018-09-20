@@ -30,9 +30,6 @@ module.exports = (app, database) => {
 
         const { title, description, url, time, location } = req.body;
         const { authUser, parsedVideo } = req;
-        // Add user link
-        // Add Type of video -> ['youtube']
-        // Add parsed data to the document
 
         database.collection('videos').insertOne(
             {
@@ -57,6 +54,35 @@ module.exports = (app, database) => {
                 res
                     .status(201)
                     .send({video});
+            });
+
+    });
+
+    app.post('/video/list', bodyChecker, (req, res) => {
+
+        const { bounds } = req.body;
+        const { topLeft, bottomRight } = bounds;
+
+        const query = {
+            'location.latitude':  {$gte: topLeft.latitude, $lte: bottomRight.latitude},
+        };
+        if (topLeft.latitude * bottomRight.latitude > 0)
+        {
+            query['location.longitude'] = {$gte: topLeft.longitude, $lte: bottomRight.longitude };
+        }
+
+        database.collection('videos')
+            .find(query)
+            .toArray((error, result) => {
+                if (error)
+                {
+                    helpers.sendServerErrorResponse(res);
+                    return;
+                }
+
+                res.send({
+                    videos: result
+                });
             });
 
     });

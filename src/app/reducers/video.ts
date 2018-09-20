@@ -1,16 +1,23 @@
 import * as actions from '../actions/video';
 import {Video} from '../models/video.model';
+import {MapBounds} from '../models/map-bounds.model';
 
 export interface State {
     newVideo: Video;
     createdVideo: Video;
     creationVideoErrors: Object;
+    selectedMapBounds: MapBounds;
+    loadedBoundsVideos: Array<Video>;
+    loadBoundVideosErrors: Array<string>;
 }
 
 const initialState: State = {
     newVideo: null,
     createdVideo: null,
-    creationVideoErrors: {}
+    creationVideoErrors: {},
+    selectedMapBounds: null,
+    loadedBoundsVideos: [],
+    loadBoundVideosErrors: []
 };
 
 export function reducer(state = initialState, action: actions.VideoActions): State {
@@ -27,6 +34,18 @@ export function reducer(state = initialState, action: actions.VideoActions): Sta
         case actions.VIDEO_CREATION_ERROR:
 
             return { ...state, creationVideoErrors: action.errors, createdVideo: null };
+
+        case actions.LOAD_VIDEO_LIST_FROM_BOUNDS_START:
+
+            return { ...state, selectedMapBounds: action.bounds };
+
+        case actions.LOAD_VIDEO_LIST_FROM_BOUNDS_SUCCESS:
+
+            return { ...state, loadedBoundsVideos: action.videos };
+
+        case actions.LOAD_VIDEO_LIST_FROM_BOUNDS_ERROR:
+
+            return { ...state, loadBoundVideosErrors: action.errors};
 
         default:
 

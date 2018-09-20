@@ -14,7 +14,7 @@
 </ng-template>
 <app-controls (onAddVideoChange)="onAddVideoChangeStateHandler($event)"></app-controls>
 <div>
-    <app-map
+    <app-map #mapComponent
             [center]="mapCenter"
             (onCoordinateSelected)="onNewCoordinateSelected($event)"
             (onBoundsChanged)="onMapBoundChangedHandler($event)"></app-map>
