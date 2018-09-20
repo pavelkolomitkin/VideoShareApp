@@ -11,6 +11,11 @@ export const LOAD_VIDEO_LIST_FROM_BOUNDS_SUCCESS = 'LOAD_VIDEO_LIST_FROM_BOUNDS_
 export const LOAD_VIDEO_LIST_FROM_BOUNDS_ERROR = 'LOAD_VIDEO_LIST_FROM_BOUNDS_ERROR';
 
 
+export const LOAD_VIDEO_START = 'LOAD_VIDEO_START';
+export const LOAD_VIDEO_SUCCESS = 'LOAD_VIDEO_SUCCESS';
+export const LOAD_VIDEO_ERROR = 'LOAD_VIDEO_ERROR';
+
+
 export class VideoCreationStart implements Action
 {
     readonly type = VIDEO_CREATION_START;
@@ -51,9 +56,30 @@ export class LoadVideoListFromBoundsError implements Action
     constructor(public errors: Array<string>) {}
 }
 
+export class LoadVideoStart implements Action
+{
+    readonly type = LOAD_VIDEO_START;
+    constructor(public id: string) {}
+}
+
+export class LoadVideoSuccess implements Action
+{
+    readonly type = LOAD_VIDEO_SUCCESS;
+    constructor(public video: Video) {}
+}
+
+export class LoadVideoError implements Action
+{
+    readonly type = LOAD_VIDEO_ERROR;
+    constructor(public error: string) {}
+}
+
 export type VideoActions = VideoCreationStart
                           | VideoCreationSuccess
                           | VideoCreationError
                           | LoadVideoListFromBoundsStart
                           | LoadVideoListFromBoundsSuccess
-                          | LoadVideoListFromBoundsError;
+                          | LoadVideoListFromBoundsError
+                          | LoadVideoStart
+                          | LoadVideoSuccess
+                          | LoadVideoError;

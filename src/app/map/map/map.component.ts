@@ -20,6 +20,8 @@ export class MapComponent implements OnInit {
 
   @Output('onBoundsChanged') onBoundsChanged: EventEmitter<MapBounds> = new EventEmitter<MapBounds>();
 
+  @Output('onVideoSelected') onVideoSelected: EventEmitter<Video> = new EventEmitter<Video>();
+
   lastMapBounds: MapBounds = null;
 
   _videos: Array<Video> = [];
@@ -95,32 +97,8 @@ export class MapComponent implements OnInit {
       // create new video marks
       for (const video of videos)
       {
-          const contentLayout = ymaps.templateLayoutFactory.createClass(
-              '<div style="color: #FFFFFF; font-weight: bold;">$[properties.iconContent]</div>'
-          );
-
-          const mark = new ymaps.Placemark([video.location.latitude, video.location.longitude],
-              {
-                  hintContent: video.title,
-                  balloonContent: '',
-                  iconContent: ''
-              },
-              {
-                  // Опции.
-                  // Необходимо указать данный тип макета.
-                  iconLayout: 'default#imageWithContent',
-                  // Своё изображение иконки метки.
-                  iconImageHref: video.videoData.thumbnail_url,
-                  // Размеры метки.
-                  iconImageSize: [48, 48],
-                  // Смещение левого верхнего угла иконки относительно
-                  // её "ножки" (точки привязки).
-                  iconImageOffset: [-24, -24],
-                  // Смещение слоя с содержимым относительно слоя с картинкой.
-                  iconContentOffset: [15, 15],
-                  // Макет содержимого.
-                  iconContentLayout: contentLayout
-              });
+          const mark = this.createVideoMark(video);
+          this.initVideoMarkEvents(mark, video);
           // create mark
           // add link in internal array
           this.videoMarks.push(mark);
@@ -130,6 +108,51 @@ export class MapComponent implements OnInit {
       }
 
       this._videos = videos;
+  }
+
+  private createVideoMark(video: Video)
+  {
+      const contentLayout = ymaps.templateLayoutFactory.createClass(
+          '<div style="color: #FFFFFF; font-weight: bold;">$[properties.iconContent]</div>'
+      );
+
+      const result = new ymaps.Placemark([video.location.latitude, video.location.longitude],
+          {
+              hintContent: video.title,
+              balloonContent: '',
+              iconContent: ''
+          },
+          {
+              // Опции.
+              // Необходимо указать данный тип макета.
+              iconLayout: 'default#imageWithContent',
+              // Своё изображение иконки метки.
+              iconImageHref: video.videoData.thumbnail_url,
+              // Размеры метки.
+              iconImageSize: [48, 48],
+              // Смещение левого верхнего угла иконки относительно
+              // её "ножки" (точки привязки).
+              iconImageOffset: [-24, -24],
+              // Смещение слоя с содержимым относительно слоя с картинкой.
+              iconContentOffset: [15, 15],
+              // Макет содержимого.
+              iconContentLayout: contentLayout
+          });
+
+
+      return result;
+  }
+
+  private initVideoMarkEvents(mark: any, video: Video)
+  {
+      const self = this;
+      mark.events.add('click',
+          (() => {
+              return () => {
+                  self.onVideoSelected.emit(video);
+              };
+          })()
+        );
   }
 
 }

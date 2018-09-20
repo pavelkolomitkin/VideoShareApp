@@ -7,6 +7,44 @@ const helpers = require('../common/helpers');
 
 module.exports = (app, database) => {
 
+    app.get('/video/:id', (req, res) => {
+        const videoId = req.params.id;
+
+        database
+            .collection('videos')
+            .find({_id: videoId})
+            .aggregate([{
+                $lookup:
+                    {
+                        from: 'users',
+                        localField: 'user_id',
+                        foreignField: '_id',
+                        as: 'owner'
+                    }
+            }])
+            .limit(1).toArray(
+            (error, videos) => {
+                if (error)
+                {
+                    helpers.sendServerErrorResponse(res);
+                    return;
+                }
+
+                if (videos.length === 0)
+                {
+                    res.status(404).send({error: 'Video was not found!'});
+
+                    return;
+                }
+
+                const video = videos[0];
+                res.send({
+                    video: video
+                });
+            }
+        );
+    });
+
     app.post('/video', [
             bodyChecker,
             check('url')

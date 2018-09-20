@@ -55,7 +55,6 @@ export class MapPageComponent implements OnInit, OnDestroy {
     this.loadedBoundsVideoList = this.store.pipe(select(state => state.video.loadedBoundsVideos))
         .subscribe((list: Array<Video>) => {
             console.log('Video list loaded: ', list);
-            //this.loadedVideoList = [...list];
             if (this.map) {
                 this.map.setVideos(list);
             }
@@ -87,6 +86,11 @@ export class MapPageComponent implements OnInit, OnDestroy {
     onMapBoundChangedHandler(bounds: MapBounds)
     {
         this.store.dispatch(new LoadVideoListFromBoundsStart(bounds));
+    }
+
+    onMapVideoSelectedHandler(video: Video)
+    {
+        console.log('Video selected: ', video);
     }
 
     openCreationVideoWindow()

@@ -12,6 +12,13 @@ export class VideoService
 {
     constructor(private http: HttpClient) {}
 
+    public getById(id: string): Observable<Video>
+    {
+        return this.http.get<{video: Video}>('video/' + id).pipe(
+            map(result => result.video)
+        );
+    }
+
     public getListFromBounds(mapBounds: MapBounds): Observable<Array<Video>>
     {
         return this.http.post<{videos: Array<Video>}>('video/list', {bounds: mapBounds}).pipe(

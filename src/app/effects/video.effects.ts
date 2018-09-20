@@ -5,7 +5,11 @@ import {Router} from '@angular/router';
 import {Observable} from 'rxjs/Observable';
 import {Action} from '@ngrx/store';
 import {
-    LOAD_VIDEO_LIST_FROM_BOUNDS_START, LoadVideoListFromBoundsError, LoadVideoListFromBoundsStart, LoadVideoListFromBoundsSuccess,
+    LOAD_VIDEO_LIST_FROM_BOUNDS_START,
+    LOAD_VIDEO_START, LoadVideoError,
+    LoadVideoListFromBoundsError,
+    LoadVideoListFromBoundsStart,
+    LoadVideoListFromBoundsSuccess, LoadVideoStart, LoadVideoSuccess,
     VIDEO_CREATION_START,
     VIDEO_CREATION_SUCCESS,
     VideoCreationError,
@@ -53,13 +57,19 @@ export class VideoEffects
             );
         })
     );
-    // creationSuccess: Observable<Action> = this.actions.pipe(
-    //     ofType(VIDEO_CREATION_SUCCESS),
-    //     mergeMap((action: VideoCreationSuccess) => {
-    //         const { video } = action;
-    //
-    //     })
-    // );
+
+    @Effect()
+    loadVideoStart: Observable<Action> = this.actions.pipe(
+        ofType(LOAD_VIDEO_START),
+        mergeMap((action: LoadVideoStart) => {
+            const { id } = action;
+
+            return this.videoService.getById(id).pipe(
+                map(video => new LoadVideoSuccess(video)),
+                catchError(errors => of(new LoadVideoError(errors.error)))
+            );
+        })
+    );
 
     constructor(
         private actions: Actions,

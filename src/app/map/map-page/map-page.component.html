@@ -8,14 +8,13 @@
     <div class="modal-body">
         <app-create-video-form [selectedLocation]="lastSelectedLocation"></app-create-video-form>
     </div>
-    <!--<div class="modal-footer">-->
-        <!--<button type="button" class="btn btn-outline-dark" (click)="close()">Save</button>-->
-    <!--</div>-->
 </ng-template>
 <app-controls (onAddVideoChange)="onAddVideoChangeStateHandler($event)"></app-controls>
 <div>
     <app-map #mapComponent
             [center]="mapCenter"
             (onCoordinateSelected)="onNewCoordinateSelected($event)"
-            (onBoundsChanged)="onMapBoundChangedHandler($event)"></app-map>
+            (onBoundsChanged)="onMapBoundChangedHandler($event)"
+            (onVideoSelected)="onMapVideoSelectedHandler($event)"
+    ></app-map>
 </div>
