@@ -30,6 +30,7 @@ import {MapRoutingModule} from './map/map-routing.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {VideoEffects} from './effects/video.effects';
 import {VideoService} from './services/video.service';
+import { FormFieldErrorListComponent } from './common/form-field-error-list/form-field-error-list.component';
 
 const httpInterceptorProviders = [
     { provide: HTTP_INTERCEPTORS, useClass: BaseApiUrlInterceptor, multi: true },
@@ -41,8 +42,7 @@ const httpInterceptorProviders = [
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
-
+    HeaderComponent
   ],
   imports: [
     CommonModule,

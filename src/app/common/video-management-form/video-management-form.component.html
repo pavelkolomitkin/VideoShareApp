@@ -9,7 +9,8 @@
             placeholder="Video Url"
             required
     >
-    <small class="form-text text-danger" *ngIf="(validationErrors | async).videoUrl">{{ (validationErrors | async).videoUrl }}</small>
+    <app-form-field-error-list [field]="'url'" [errors]="validationErrors"></app-form-field-error-list>
+    <!--<small class="form-text text-danger" *ngIf="(validationErrors | async).videoUrl">{{ (validationErrors | async).videoUrl }}</small>-->
   </div>
   <div class="form-group">
     <input
@@ -21,7 +22,8 @@
             placeholder="Video Title"
             required
     >
-    <small class="form-text text-danger" *ngIf="(validationErrors | async).title">{{ (validationErrors | async).title }}</small>
+    <app-form-field-error-list [field]="'title'" [errors]="validationErrors"></app-form-field-error-list>
+    <!--<small class="form-text text-danger" *ngIf="(validationErrors | async).title">{{ (validationErrors | async).title }}</small>-->
   </div>
   <div class="form-group">
     <textarea
@@ -32,25 +34,17 @@
             placeholder="Video Description"
             rows="3"
     ></textarea>
-    <!--<input-->
-            <!--type="text"-->
-            <!--class="form-control"-->
-            <!--id="description"-->
-            <!--[(ngModel)]="video.description"-->
-            <!--name="description"-->
-            <!--placeholder="Video Description"-->
-    <!--&gt;-->
-    <small class="form-text text-danger" *ngIf="(validationErrors | async).description">{{ (validationErrors | async).description }}</small>
+    <app-form-field-error-list [field]="'description'" [errors]="validationErrors"></app-form-field-error-list>
   </div>
 
   <div class="form-group">
     <angular2-date-picker [(ngModel)]="video.time" [settings]="settings" name="date"></angular2-date-picker>
-
-    <small class="form-text text-danger" *ngIf="(validationErrors | async).time">{{ (validationErrors | async).time }}</small>
   </div>
 
   <div class="form-group">
       <span class="text text-muted">Geo Location:  [{{ video.location.latitude }}, {{ video.location.longitude }}]</span>
+      <app-form-field-error-list [field]="'location.latitude'" [errors]="validationErrors"></app-form-field-error-list>
+      <app-form-field-error-list [field]="'location.longitude'" [errors]="validationErrors"></app-form-field-error-list>
   </div>
   <button type="submit" class="btn btn-primary">Save</button>
 </form>

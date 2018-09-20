@@ -25,7 +25,7 @@ module.exports = (app, database) => {
         const errors = validationResult(req);
         if (!errors.isEmpty())
         {
-            return res.status(422).json({ errors: errors.array() })
+            return res.status(422).json({ errors: helpers.prepareResponseErrors(errors) })
         }
 
         const { title, description, url, time, location } = req.body;
