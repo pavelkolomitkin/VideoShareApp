@@ -30,6 +30,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {VideoEffects} from './effects/video.effects';
 import {VideoService} from './services/video.service';
 import {VideoViewComponent} from './map/video-view/video-view.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 const httpInterceptorProviders = [
     { provide: HTTP_INTERCEPTORS, useClass: BaseApiUrlInterceptor, multi: true },
@@ -40,7 +41,8 @@ const httpInterceptorProviders = [
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent
+    HeaderComponent,
+    PageNotFoundComponent
   ],
   imports: [
     CommonModule,
