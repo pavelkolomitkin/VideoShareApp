@@ -22,7 +22,6 @@ import {CommonModule} from '@angular/common';
 import {LocalStorageService} from './services/local-storage.service';
 import {MapModule} from './map/map.module';
 import {appInitializeHandler, AppInitializerService} from './services/app-initializer.service';
-import {ProfileModule} from './profile/profile.module';
 import {CreateVideoFormComponent} from './common/create-video-form/create-video-form.component';
 import {NgbDropdownModule, NgbModalModule} from '@ng-bootstrap/ng-bootstrap';
 import {MapRoutingModule} from './map/map-routing.module';
@@ -30,7 +29,6 @@ import {MapRoutingModule} from './map/map-routing.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {VideoEffects} from './effects/video.effects';
 import {VideoService} from './services/video.service';
-import { FormFieldErrorListComponent } from './common/form-field-error-list/form-field-error-list.component';
 import {VideoViewComponent} from './map/video-view/video-view.component';
 
 const httpInterceptorProviders = [
@@ -38,7 +36,6 @@ const httpInterceptorProviders = [
     { provide: HTTP_INTERCEPTORS, useClass: DefaultHttpHeadersInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: AuthTokenInjectorInterceptor, multi: true }
 ];
-
 
 @NgModule({
   declarations: [
@@ -58,7 +55,6 @@ const httpInterceptorProviders = [
     AppRoutingModule,
     SecurityModule,
       MapModule,
-      ProfileModule,
       StoreDevtoolsModule.instrument(
           {
               maxAge: 25, // Retains last 25 states

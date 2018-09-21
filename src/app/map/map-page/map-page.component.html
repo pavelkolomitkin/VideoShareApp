@@ -21,7 +21,9 @@
         <app-video-view [videoId]="lastSelectedVideo._id"></app-video-view>
     </div>
 </ng-template>
-<app-controls (onAddVideoChange)="onAddVideoChangeStateHandler($event)"></app-controls>
+<div class="controls-container">
+    <app-controls (onAddVideoChange)="onAddVideoChangeStateHandler($event)"></app-controls>
+</div>
 <div>
     <app-map #mapComponent
             [center]="mapCenter"

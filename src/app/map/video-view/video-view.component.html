@@ -1,6 +1,6 @@
 <div class="video-view" *ngIf="video !== null; else loader">
-  <div *ngIf="video.description.trim() !== ''" class="text text-muted">{{ video.description }}</div>
-  <div class="text text-muted video-date">Added: {{ video.time }}</div>
+  <div *ngIf="video.description.trim() !== ''" class="text">{{ video.description }}</div>
+  <div class="text small text-muted video-date">Added: {{ video.time }} by <span class="text-info">{{ video.owner.username }}</span></div>
 
   <p class="video-container" [innerHtml]="iFrameSafeHtml" [ngStyle]="{ height: '550px' }">
   </p>
