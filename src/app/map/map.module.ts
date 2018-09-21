@@ -11,6 +11,7 @@ import {VideoManagementFormComponent} from '../common/video-management-form/vide
 import {FormsModule} from '@angular/forms';
 import { AngularDateTimePickerModule } from 'angular2-datetimepicker';
 import {FormFieldErrorListComponent} from '../common/form-field-error-list/form-field-error-list.component';
+import { VideoViewComponent } from './video-view/video-view.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import {FormFieldErrorListComponent} from '../common/form-field-error-list/form-
       ModalWindowComponent,
       CreateVideoFormComponent,
       VideoManagementFormComponent,
-      FormFieldErrorListComponent
+      FormFieldErrorListComponent,
+      VideoViewComponent
   ],
   imports: [
     CommonModule,

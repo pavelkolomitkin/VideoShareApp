@@ -5,6 +5,7 @@ import {MapBounds} from '../models/map-bounds.model';
 export const VIDEO_CREATION_START = 'VIDEO_CREATION_START';
 export const VIDEO_CREATION_SUCCESS = 'VIDEO_CREATION_SUCCESS';
 export const VIDEO_CREATION_ERROR = 'VIDEO_CREATION_ERROR';
+export const VIDE0_CREATION_CANCEL = 'VIDE0_CREATION_CANCEL';
 
 export const LOAD_VIDEO_LIST_FROM_BOUNDS_START = 'LOAD_VIDEO_LIST_FROM_BOUNDS_START';
 export const LOAD_VIDEO_LIST_FROM_BOUNDS_SUCCESS = 'LOAD_VIDEO_LIST_FROM_BOUNDS_SUCCESS';
@@ -36,6 +37,11 @@ export class VideoCreationError implements Action
     readonly type = VIDEO_CREATION_ERROR;
 
     constructor(public errors: Object) {}
+}
+
+export class VideoCreationCancel implements Action
+{
+    readonly type = VIDE0_CREATION_CANCEL;
 }
 
 export class LoadVideoListFromBoundsStart implements Action
@@ -77,6 +83,7 @@ export class LoadVideoError implements Action
 export type VideoActions = VideoCreationStart
                           | VideoCreationSuccess
                           | VideoCreationError
+                          | VideoCreationCancel
                           | LoadVideoListFromBoundsStart
                           | LoadVideoListFromBoundsSuccess
                           | LoadVideoListFromBoundsError

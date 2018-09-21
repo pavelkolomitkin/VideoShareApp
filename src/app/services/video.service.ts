@@ -30,8 +30,7 @@ export class VideoService
     {
         const body = _.pick(video, 'url', 'title', 'description', 'location', 'time');
         return this.http.post<{video: Video}>('video', body).pipe(
-            map(result => result.video),
-            catchError(result => result.errors)
+            map(result => result.video)
         );
     }
 

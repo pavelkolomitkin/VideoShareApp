@@ -4,6 +4,7 @@ import {GeoLocation} from '../../models/geo-location.model';
 import {select, Store} from '@ngrx/store';
 import {State} from '../../reducers';
 import {VideoCreationStart} from '../../actions/video';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'app-create-video-form',

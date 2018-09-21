@@ -9,6 +9,18 @@
         <app-create-video-form [selectedLocation]="lastSelectedLocation"></app-create-video-form>
     </div>
 </ng-template>
+
+<ng-template #videoViewModal let-close="close">
+    <div class="modal-header">
+        <h4 class="modal-title">{{ lastSelectedVideo.title }}</h4>
+        <button type="button" class="close" aria-label="Close" (click)="close()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <app-video-view [videoId]="lastSelectedVideo._id"></app-video-view>
+    </div>
+</ng-template>
 <app-controls (onAddVideoChange)="onAddVideoChangeStateHandler($event)"></app-controls>
 <div>
     <app-map #mapComponent

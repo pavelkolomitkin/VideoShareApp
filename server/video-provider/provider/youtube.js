@@ -15,7 +15,7 @@ module.exports = (url) => {
         }
 
         request('https://www.youtube.com/oembed?url=' + url, (error, response, body) => {
-            if (error) {
+            if (error || response.statusCode !== 200) {
                 reject();
                 return;
             }

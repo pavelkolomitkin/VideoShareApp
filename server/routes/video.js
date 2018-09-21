@@ -4,6 +4,7 @@ const { body, check, validationResult } = require('express-validator/check');
 const { url } = require('../validators/video');
 const { isLatitude, isLongitude } = require('../validators/geo');
 const helpers = require('../common/helpers');
+const { ObjectID } = require('mongodb');
 
 module.exports = (app, database) => {
 
@@ -12,17 +13,25 @@ module.exports = (app, database) => {
 
         database
             .collection('videos')
-            .find({_id: videoId})
-            .aggregate([{
-                $lookup:
+            .aggregate([
+                {
+                    $match: {
+                        _id: new ObjectID(videoId)
+                    }
+                },
+                {
+                    $lookup:
                     {
                         from: 'users',
-                        localField: 'user_id',
+                        localField: 'userId',
                         foreignField: '_id',
                         as: 'owner'
                     }
-            }])
-            .limit(1).toArray(
+                },
+                {
+                    $unwind: "$owner"
+                }
+            ]).toArray(
             (error, videos) => {
                 if (error)
                 {

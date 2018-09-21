@@ -1,0 +1,18 @@
+.video-view
+{
+    height: 50%;
+}
+
+.video-view .video-container
+{
+    height: 100%;
+}
+
+.video-container iframe {
+    width: 100%;
+}
+
+.video-date
+{
+    margin-bottom: 15px;
+}

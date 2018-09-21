@@ -31,6 +31,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {VideoEffects} from './effects/video.effects';
 import {VideoService} from './services/video.service';
 import { FormFieldErrorListComponent } from './common/form-field-error-list/form-field-error-list.component';
+import {VideoViewComponent} from './map/video-view/video-view.component';
 
 const httpInterceptorProviders = [
     { provide: HTTP_INTERCEPTORS, useClass: BaseApiUrlInterceptor, multi: true },
@@ -78,7 +79,7 @@ const httpInterceptorProviders = [
           multi: true
       }
   ],
-    entryComponents: [CreateVideoFormComponent],
+    entryComponents: [CreateVideoFormComponent, VideoViewComponent], // TODO: move to map-module
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,10 @@
+<div class="video-view" *ngIf="video !== null; else loader">
+  <div *ngIf="video.description.trim() !== ''" class="text text-muted">{{ video.description }}</div>
+  <div class="text text-muted video-date">Added: {{ video.time }}</div>
+
+  <p class="video-container" [innerHtml]="iFrameSafeHtml" [ngStyle]="{ height: '550px' }">
+  </p>
+</div>
+<ng-template #loader>
+  <h2>Loading...</h2>
+</ng-template>

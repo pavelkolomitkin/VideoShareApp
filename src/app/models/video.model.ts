@@ -2,7 +2,7 @@ import {User} from './user.model';
 import {GeoLocation} from './geo-location.model';
 
 export interface Video {
-    id?: string;
+    _id?: string;
     url?: string;
     title?: string;
     description?: string;
@@ -10,6 +10,7 @@ export interface Video {
     location?: GeoLocation;
     owner?: User;
     videoData?: {
-        thumbnail_url?: string
+        thumbnail_url?: string,
+        html?: string
     };
 }
