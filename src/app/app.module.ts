@@ -3,7 +3,6 @@ import {APP_INITIALIZER, isDevMode, NgModule} from '@angular/core';
 
 
 import { AppComponent } from './app.component';
-import {SecurityModule} from './security/security.module';
 import {AppRoutingModule} from './app-routing.module';
 import { HeaderComponent } from './header/header.component';
 import {HttpClientModule} from '@angular/common/http';
@@ -26,6 +25,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {VideoEffects} from './effects/video.effects';
 import {VideoService} from './services/video.service';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import {SecurityService} from './security/services/SecurityService';
+import {SecurityEffects} from './security/effects/security.effects';
 
 const httpInterceptorProviders = [
     { provide: HTTP_INTERCEPTORS, useClass: BaseApiUrlInterceptor, multi: true },
@@ -48,7 +49,6 @@ const httpInterceptorProviders = [
     StoreModule.forRoot(reducer),
 
     HttpClientModule,
-      SecurityModule,
       AppRoutingModule,
       StoreDevtoolsModule.instrument(
           {
@@ -56,12 +56,13 @@ const httpInterceptorProviders = [
               logOnly: isDevMode()
           }
       ),
-    EffectsModule.forRoot([VideoEffects])
+    EffectsModule.forRoot([VideoEffects, SecurityEffects])
   ],
   providers: [
       httpInterceptorProviders,
       LocalStorageService,
       VideoService,
+      SecurityService,
       AppInitializerService,
       {
           provide: APP_INITIALIZER,

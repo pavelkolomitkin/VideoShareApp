@@ -5,6 +5,7 @@ import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 const routes: Routes = [
     { path: '', redirectTo: 'map', pathMatch: 'full' },
     { path: 'map', loadChildren: './map/map.module#MapModule'},
+    { path: 'login', loadChildren: './security/security.module#SecurityModule'},
     { path: '**', component: PageNotFoundComponent}
 ];
 
