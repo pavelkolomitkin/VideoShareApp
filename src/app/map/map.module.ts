@@ -28,10 +28,12 @@ import { VideoViewComponent } from './video-view/video-view.component';
   imports: [
     CommonModule,
       FormsModule,
-      AngularDateTimePickerModule
+      AngularDateTimePickerModule,
+      MapRoutingModule
   ],
   exports: [
       RouterModule
-  ]
+  ],
+    entryComponents: [CreateVideoFormComponent, VideoViewComponent]
 })
 export class MapModule { }

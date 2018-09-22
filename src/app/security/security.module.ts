@@ -15,7 +15,7 @@ import {SecurityService} from './services/SecurityService';
         CommonModule,
         FormsModule,
         SecurityRoutingModule,
-        //EffectsModule.forFeature([SecurityEffects])
+        EffectsModule.forFeature([SecurityEffects])
     ],
     exports: [
         FormsModule

@@ -5,7 +5,7 @@ import {CommonGuard} from '../routing-guards/common.guard';
 import {MapPageComponent} from './map-page/map-page.component';
 
 const routes: Routes = [
-     {path: 'map', component: MapPageComponent, canActivate: [CommonGuard]}
+     {path: '', component: MapPageComponent, canActivate: [CommonGuard]}
 ];
 
 @NgModule({

@@ -16,20 +16,15 @@ import {DefaultHttpHeadersInterceptor} from './services/interceptors/default-htt
 import {AuthTokenInjectorInterceptor} from './services/interceptors/auth-token-injector.interceptor';
 import {BaseApiUrlInterceptor} from './services/interceptors/base-api-url.interceptor';
 import {EffectsModule} from '@ngrx/effects';
-import {SecurityEffects} from './security/effects/security.effects';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {CommonModule} from '@angular/common';
 import {LocalStorageService} from './services/local-storage.service';
-import {MapModule} from './map/map.module';
 import {appInitializeHandler, AppInitializerService} from './services/app-initializer.service';
-import {CreateVideoFormComponent} from './common/create-video-form/create-video-form.component';
 import {NgbDropdownModule, NgbModalModule} from '@ng-bootstrap/ng-bootstrap';
-import {MapRoutingModule} from './map/map-routing.module';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {VideoEffects} from './effects/video.effects';
 import {VideoService} from './services/video.service';
-import {VideoViewComponent} from './map/video-view/video-view.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 const httpInterceptorProviders = [
@@ -50,20 +45,18 @@ const httpInterceptorProviders = [
       BrowserAnimationsModule,
       NgbModalModule.forRoot(),
       NgbDropdownModule.forRoot(),
-      MapRoutingModule,
     StoreModule.forRoot(reducer),
 
     HttpClientModule,
-    AppRoutingModule,
-    SecurityModule,
-      MapModule,
+      SecurityModule,
+      AppRoutingModule,
       StoreDevtoolsModule.instrument(
           {
-              maxAge: 25, // Retains last 25 states
-              logOnly: isDevMode(), // Restrict extension to log-only mode
+              maxAge: 25,
+              logOnly: isDevMode()
           }
       ),
-    EffectsModule.forRoot([SecurityEffects, VideoEffects]) // TODO move to security module!!!
+    EffectsModule.forRoot([VideoEffects])
   ],
   providers: [
       httpInterceptorProviders,
@@ -77,7 +70,6 @@ const httpInterceptorProviders = [
           multi: true
       }
   ],
-    entryComponents: [CreateVideoFormComponent, VideoViewComponent], // TODO: move to map-module
   bootstrap: [AppComponent]
 })
 export class AppModule { }
