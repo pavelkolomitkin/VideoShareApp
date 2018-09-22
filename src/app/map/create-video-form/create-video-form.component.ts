@@ -2,7 +2,7 @@ import {AfterContentInit, AfterViewChecked, AfterViewInit, Component, Input, OnD
 import {Video} from '../../models/video.model';
 import {GeoLocation} from '../../models/geo-location.model';
 import {select, Store} from '@ngrx/store';
-import {State} from '../../reducers';
+import {State} from '../../reducers/index';
 import {VideoCreationStart} from '../../actions/video';
 import {Observable} from 'rxjs/Observable';
 
