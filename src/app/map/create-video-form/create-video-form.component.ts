@@ -17,9 +17,9 @@ export class CreateVideoFormComponent implements OnInit {
     }
 
     video: Video = {
-        title: 'Hello',
+        title: '',
         description: '',
-        url: 'https://www.youtube.com/watch?v=9GiF-etogYg',
+        url: '',
         time: new Date()
     };
 
